@@ -1,1 +1,7 @@
-@import 'tailwindcss'
+@import "tailwindcss";
+
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-markdown-heading: var(--color-blue-600);
+}
