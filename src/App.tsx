@@ -8,33 +8,39 @@ const App = () => {
 
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
-  const isScrolling = useRef(false)
+ // track if the scroll ipdate is already scheduled
+    const ticking = useRef(false)
 
-  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
-    if(isScrolling.current) {
-      isScrolling.current = false
-      return
-    }
-
-    // to prevent the jumping when both sides are updating
-    isScrolling.current = true;
-
-    const source = e.currentTarget as HTMLElement;
-    const target =
-      source === editorRef.current
-        ? (previewRef.current as HTMLElement)
-        : (editorRef.current as HTMLElement);
-
-    if (target && source) {
-      // calc scroll precentage 0 to 1
+    const syncScroll = (source: HTMLElement, target:HTMLElement) => {
+       // calc scroll precentage 0 to 1
       const scrollPercentage =
         source.scrollTop / (source.scrollHeight - source.clientHeight);
-
-      // apply to target
+          // apply to target
 
       target.scrollTop =
         scrollPercentage * (target.scrollHeight - target.clientHeight);
+
+// reset the ticking so the next scroll event can trigger an updte
+        ticking.current = false
     }
+
+  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
+
+    if(!ticking.current){
+      const source = e.currentTarget as HTMLElement
+       const target = source === editorRef.current
+        ? (previewRef.current as HTMLElement)
+        : (editorRef.current as HTMLElement);
+    
+    if (target){
+      // schedule the update for the next browser repaint
+      // using requestAnimationFrame (rAF) is the gold standard for high-performance scroll syncing
+      window.requestAnimationFrame(() => syncScroll(source, target))
+
+      ticking.current= true
+
+    }
+  }
   };
 
   return (
