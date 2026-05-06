@@ -51,6 +51,12 @@ const App = () => {
       }
     }
   };
+  // logic to calc stats 
+  const stats = {
+  words: markdown.trim() ? markdown.trim().split(/\s+/).length : 0,
+  chars: markdown.length,
+  minutes: Math.ceil((markdown.trim().split(/\s+/).length) / 200)
+};
 
   return (
     
@@ -95,6 +101,15 @@ const App = () => {
         </div>
       </section>
     </main>
+     <footer className="flex justify-between items-center px-4 py-2 bg-slate-50 dark:bg-slate-900 border-t dark:border-slate-800 text-[10px] font-mono uppercase tracking-widest text-slate-500">
+      <div className="flex gap-4 text-slate-900 dark:text-white">
+        <span>Words: <span className="text-slate-900 dark:text-white font-bold">{stats.words}</span></span>
+        <span>Chars: <span className="text-slate-900 dark:text-white font-bold">{stats.chars}</span></span>
+      </div>
+      <div>
+        <span>Est. Reading Time: <span className="text-blue-500 font-bold">{stats.minutes} min</span></span>
+      </div>
+    </footer>
     </div>
   );
 };
