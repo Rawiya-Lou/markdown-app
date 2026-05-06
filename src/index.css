@@ -3,5 +3,19 @@
 @plugin "@tailwindcss/typography";
 
 @theme {
-  --color-markdown-heading: var(--color-blue-600);
+     /* High-contrast colors for all markdown elements in dark mode */
+  --tw-prose-invert-body: var(--color-slate-300);      /* Main text */
+  --tw-prose-invert-headings: var(--color-white);      /* # Headings */
+  --tw-prose-invert-lead: var(--color-slate-400);      /* Intro text */
+  --tw-prose-invert-links: var(--color-blue-400);      /* [Links] */
+  --tw-prose-invert-bold: var(--color-white);          /* **Strong** */
+  --tw-prose-invert-italic: var(--color-slate-100);    /* *Italic* */
+  --tw-prose-invert-counters: var(--color-slate-400);  /* 1. Lists */
+  --tw-prose-invert-bullets: var(--color-slate-600);   /* • Bullets */
+  --tw-prose-invert-hr: var(--color-slate-800);        /* --- Lines */
+  --tw-prose-invert-quotes: var(--color-slate-100);    /* > Quotes */
+  --tw-prose-invert-quote-borders: var(--color-blue-500);
+  --tw-prose-invert-code: var(--color-pink-400);       /* `inline code` */
 }
+
+@variant dark (&:where(.dark, .dark *));

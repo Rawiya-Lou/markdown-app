@@ -1,73 +1,63 @@
-# React + TypeScript + Vite
+# 🚀 Modern Markdown Editor (2026 Edition)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A professional, high-performance Markdown editor built with **React 19**, **TypeScript**, and **Tailwind CSS v4**. Featuring live preview, smooth scroll synchronization, and persistent local storage.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **⚡ Real-time Live Preview**: Instant rendering using `react-markdown` and `remark-gfm`.
+- **📜 Smooth Scroll Sync**: A `requestAnimationFrame` optimized algorithm that links the editor and preview scroll positions.
+- **🎨 Tailwind v4 Typography**: Uses the latest CSS-first `@tailwindcss/typography` engine for beautiful document styling.
+- **💻 Professional Syntax Highlighting**: Language-aware code blocks with a custom **Copy to Clipboard** button.
+- **🌓 Adaptive Dark Mode**: Built-in dark mode with automatic `prose-invert` styling for high-contrast reading.
+- **💾 Local Persistence**: Automatically saves your work to `localStorage` so you never lose a draft.
+- **🔗 GitHub Flavored Markdown**: Full support for tables, task lists, and strikethroughs.
 
-## React Compiler
+## 🛠️ Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Frontend**: [React 19](https://react.dev)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com)
+- **Language**: [TypeScript](https://typescriptlang.org)
+- **Build Tool**: [Vite](https://vite.dev)
+- **Markdown Engine**: `react-markdown` + `remark-gfm`
+- **Syntax Highlighting**: `react-syntax-highlighter` (Prism)
 
-## Expanding the ESLint configuration
+## 🚀 Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com
+   ```
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📂 Architecture
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- `App.tsx`: Manages the state, persistence, and the scroll-sync algorithm.
+- `MarkdownViewer.tsx`: Handles the conversion of raw text into styled HTML components.
+- `CodeBlock.tsx`: A wrapper for syntax highlighting with integrated clipboard logic.
+- `index.css`: Configures Tailwind v4 plugins and custom dark-mode variables.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🔮 Future Roadmap
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Planned features to take this editor to the next level:
+
+- **📊 Mermaid.js Integration**: Render flowcharts and diagrams directly from text.
+- **📁 File System Access API**: Open and save files directly from your computer without "uploading" (Native 2026 Browser Standard).
+- **📝 Word & Reading Time Counter**: Real-time statistics for writers and bloggers.
+- **🧪 MathJax/KaTeX Support**: High-quality LaTeX mathematical formula rendering.
+- **📄 Export to PDF**: One-click professional PDF generation with custom styling.
+- **☁️ Cloud Sync**: Optional Firebase or Supabase integration for cross-device editing.
+- **🤖 AI Writing Assistant**: Integration with local LLMs (via WebGPU) for grammar correction and content expansion.
+
+
+## 📜 License
+
+MIT License - feel free to use this for your own projects!
