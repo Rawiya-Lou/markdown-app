@@ -12,6 +12,17 @@ const App = () => {
     }
     return "";
   });
+  const [copiedAll, setCopiedAll] = useState(false);
+
+const copyEntireMarkdown = async () => {
+  try {
+    await navigator.clipboard.writeText(markdown);
+    setCopiedAll(true);
+    setTimeout(() => setCopiedAll(false), 2000);
+  } catch (err) {
+    console.error("Failed to copy:", err);
+  }
+};
 
   // 2. Sync to localStorage whenever markdown changes
   useEffect(() => {
@@ -66,6 +77,16 @@ const App = () => {
         <header className="flex justify-between items-center p-4 border-b dark:border-slate-800">
         <h1 className="font-bold dark:text-white">Markdown Editor</h1>
         <div className="flex gap-4">
+            <button 
+      onClick={copyEntireMarkdown}
+      className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all border
+        ${copiedAll 
+          ? "bg-green-500 border-green-500 text-white" 
+          : "bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 cursor-pointer"
+        }`}
+    >
+      {copiedAll ? "✓ Copied Entire MD" : "📋 Copy All"}
+    </button>
           <button 
             onClick={() => setMarkdown("")}
             className="text-xs text-red-500 hover:underline cursor-pointer"
