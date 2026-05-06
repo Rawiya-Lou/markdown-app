@@ -2,6 +2,14 @@
 
 @plugin "@tailwindcss/typography";
 
+@layer components {
+  .toolbar-btn {
+    @apply px-3 py-1 text-xs font-bold rounded border border-slate-200 
+           dark:border-slate-700 dark:text-slate-200 hover:bg-white 
+           dark:hover:bg-slate-800 transition-all;
+  }
+}
+
 @theme {
      /* High-contrast colors for all markdown elements in dark mode */
   --tw-prose-invert-body: var(--color-slate-300);      /* Main text */

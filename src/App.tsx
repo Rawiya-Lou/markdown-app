@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import MarkdownViewer from "./components/MarkdownViewer";
 import { ToggleTheme } from "./components/ToggleTheme";
+import Toolbar from "./components/ToolBar";
+
 
 const App = () => {
   const [markdown, setMarkdown] = useState(() => {
@@ -78,6 +80,7 @@ const App = () => {
         <div className="bg-slate-100 dark:bg-slate-800 text-xs font-mono uppercase tracking-widest text-slate-500 p-2 dark:text-slate-200">
           Markdown Editor
         </div>
+        <Toolbar editorRef={editorRef} setMarkdown={setMarkdown} />
         <textarea
           ref={editorRef}
           onScroll={handleScroll}
