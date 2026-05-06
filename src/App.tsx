@@ -1,19 +1,72 @@
-import { useState } from "react"
-import MarkdownViewer from "./MarkdownViewer"
-
+import React, { useRef, useState } from "react";
+import MarkdownViewer from "./MarkdownViewer";
 
 const App = () => {
-  const [markdown, setMarkdown] = useState('# Hello World\nThis is **bold** text.');
+  const [markdown, setMarkdown] = useState(
+    "# Hello World\nThis is **bold** text.",
+  );
 
+  const editorRef = useRef<HTMLTextAreaElement>(null);
+  const previewRef = useRef<HTMLDivElement>(null);
+  const isScrolling = useRef(false)
+
+  const handleScroll = (e: React.UIEvent<HTMLElement>) => {
+    if(isScrolling.current) {
+      isScrolling.current = false
+      return
+    }
+
+    // to prevent the jumping when both sides are updating
+    isScrolling.current = true;
+
+    const source = e.currentTarget as HTMLElement;
+    const target =
+      source === editorRef.current
+        ? (previewRef.current as HTMLElement)
+        : (editorRef.current as HTMLElement);
+
+    if (target && source) {
+      // calc scroll precentage 0 to 1
+      const scrollPercentage =
+        source.scrollTop / (source.scrollHeight - source.clientHeight);
+
+      // apply to target
+
+      target.scrollTop =
+        scrollPercentage * (target.scrollHeight - target.clientHeight);
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-slate-900 p-8">
-      <textarea className="w-full h-40 p-4 border rounded mb-8 dark:bg-slate-800 dark:text-white" value={markdown} onChange={(e) => setMarkdown(e.target.value)} />
-        <div className="border-t pt-8">
+    <main className="grid grid-cols-1 lg:grid-cols-2 h-screen w-full bg-white dark:bg-slate-900 overflow-hidden">
+      <section className="flex flex-col border-r border-slate-200 dark:border-slate-800">
+        <div className="bg-slate-100 dark:bg-slate-800 text-xs font-mono uppercase tracking-widest text-slate-500 p-2">
+          Markdown Editor
+        </div>
+        <textarea
+          ref={editorRef}
+          onScroll={handleScroll}
+          className="flex-1 p-6 outline-none bg-transparent resize-none font-mono text-sm dark:text-slate-200"
+          placeholder="Enter markdown..."
+          value={markdown}
+          onChange={(e) => setMarkdown(e.target.value)}
+        />
+      </section>
+
+      <section
+        className="flex flex-col overflow-y-auto"
+        ref={previewRef}
+        onScroll={handleScroll}
+      >
+        <div className="bg-slate-100 dark:bg-slate-800 p-2 text-xs font-mono uppercase tracking-widest text-slate-500 sticky top-0 z-10">
+          Live Preview
+        </div>
+        <div className="p-8">
           <MarkdownViewer content={markdown} />
         </div>
-    </div>
-  )
-}
+      </section>
+    </main>
+  );
+};
 
-export default App
+export default App;
